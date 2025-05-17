@@ -11,6 +11,7 @@ namespace SistemaBibliotecario.Models
     public class Livro
     {
         // Propriedades do livro com validações por Data Annotations
+        [Key]
         [Required(ErrorMessage = "É obrigatório informar o código do livro!")]
         [Range(1, int.MaxValue, ErrorMessage = "O código do livro deve ser um número positivo!")]
         public int Codigo { get; set; }

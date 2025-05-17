@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -22,21 +23,22 @@ namespace SistemaBibliotecario.DAL
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                connection.Open();
                 try
                 {
+                    connection.Open();
                     SqlCommand cmd = new SqlCommand
                     (
                         "INSERT INTO Livros (Codigo, Titulo, Autor, Categoria, Editora, Disponivel) " +
                         "VALUES (@Codigo, @Titulo, @Autor, @Categoria, @Editora, @Disponivel)",
                         connection
                     );
-                    cmd.Parameters.AddWithValue("@Codigo", livro.Codigo);
-                    cmd.Parameters.AddWithValue("@Titulo", livro.Titulo);
-                    cmd.Parameters.AddWithValue("@Autor", livro.Autor);
-                    cmd.Parameters.AddWithValue("@Categoria", livro.Categoria);
-                    cmd.Parameters.AddWithValue("@Editora", livro.Editora);
-                    cmd.Parameters.AddWithValue("@Disponivel", livro.Disponivel);
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Parameters.Add("@Codigo", SqlDbType.Int).Value = livro.Codigo;
+                    cmd.Parameters.Add("@Titulo", SqlDbType.NVarChar, 100).Value = livro.Titulo;
+                    cmd.Parameters.Add("@Autor", SqlDbType.NVarChar, 100).Value = livro.Autor;
+                    cmd.Parameters.Add("@Categoria", SqlDbType.NVarChar, 50).Value = livro.Categoria;
+                    cmd.Parameters.Add("@Editora", SqlDbType.NVarChar, 50).Value = livro.Editora;
+                    cmd.Parameters.Add("@Disponivel", SqlDbType.Bit).Value = livro.Disponivel;
                     cmd.ExecuteNonQuery();
                 }
                 catch (SqlException ex)
@@ -60,20 +62,24 @@ namespace SistemaBibliotecario.DAL
                         "WHERE Codigo = @Codigo",
                         connection
                     );
-                    cmd.Parameters.AddWithValue("@Codigo", codigo);
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Parameters.Add("@Codigo", SqlDbType.Int).Value = codigo;
+                    using (SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
-                        livro = new Livro
+                        if (reader.Read())
                         {
-                            Codigo = (int)reader["Codigo"],
-                            Titulo = reader["Titulo"]?.ToString() ?? string.Empty, // Trata nulidade
-                            Autor = reader["Autor"]?.ToString() ?? string.Empty,
-                            Categoria = reader["Categoria"]?.ToString() ?? string.Empty,
-                            Editora = reader["Editora"]?.ToString() ?? string.Empty,
-                            Disponivel = (bool)reader["Disponivel"]
-                        };
+                            livro = new Livro
+                            {
+                                Codigo = (int)reader["Codigo"],
+                                Titulo = reader["Titulo"]?.ToString() ?? string.Empty, // Trata nulidade
+                                Autor = reader["Autor"]?.ToString() ?? string.Empty,
+                                Categoria = reader["Categoria"]?.ToString() ?? string.Empty,
+                                Editora = reader["Editora"]?.ToString() ?? string.Empty,
+                                Disponivel = (bool)reader["Disponivel"]
+                            };
+                        }
                     }
+
                 }
                 catch (SqlException ex)
                 {
@@ -97,12 +103,13 @@ namespace SistemaBibliotecario.DAL
                         "WHERE Codigo = @Codigo",
                         connection
                     );
-                    cmd.Parameters.AddWithValue("@Codigo", livro.Codigo);
-                    cmd.Parameters.AddWithValue("@Titulo", livro.Titulo);
-                    cmd.Parameters.AddWithValue("@Autor", livro.Autor);
-                    cmd.Parameters.AddWithValue("@Categoria", livro.Categoria);
-                    cmd.Parameters.AddWithValue("@Editora", livro.Editora);
-                    cmd.Parameters.AddWithValue("@Disponivel", livro.Disponivel);
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Parameters.Add("@Codigo", SqlDbType.Int).Value = livro.Codigo;
+                    cmd.Parameters.Add("@Titulo", SqlDbType.NVarChar, 100).Value = livro.Titulo;
+                    cmd.Parameters.Add("@Autor", SqlDbType.NVarChar, 100).Value = livro.Autor;
+                    cmd.Parameters.Add("@Categoria", SqlDbType.NVarChar, 50).Value = livro.Categoria;
+                    cmd.Parameters.Add("@Editora", SqlDbType.NVarChar, 50).Value = livro.Editora;
+                    cmd.Parameters.Add("@Disponivel", SqlDbType.Bit).Value = livro.Disponivel;
                     cmd.ExecuteNonQuery();
                 }
                 catch (SqlException ex)
@@ -125,7 +132,8 @@ namespace SistemaBibliotecario.DAL
                         "WHERE Codigo = @Codigo",
                         connection
                     );
-                    cmd.Parameters.AddWithValue("@Codigo", codigo);
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Parameters.Add("@Codigo", SqlDbType.Int).Value = codigo;
                     cmd.ExecuteNonQuery();
                 }
                 catch (SqlException ex)
@@ -144,20 +152,24 @@ namespace SistemaBibliotecario.DAL
                 try
                 {
                     SqlCommand cmd = new SqlCommand("SELECT * FROM Livros", connection);
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    using (SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
-                        Livro livro = new Livro
+                        while (reader.Read())
                         {
-                            Codigo = (int)reader["Codigo"],
-                            Titulo = reader["Titulo"]?.ToString() ?? string.Empty,
-                            Autor = reader["Autor"]?.ToString() ?? string.Empty,
-                            Categoria = reader["Categoria"]?.ToString() ?? string.Empty,
-                            Editora = reader["Editora"]?.ToString() ?? string.Empty,
-                            Disponivel = (bool)reader["Disponivel"]
-                        };
-                        livros.Add(livro);
+                            Livro livro = new Livro
+                            {
+                                Codigo = (int)reader["Codigo"],
+                                Titulo = reader["Titulo"]?.ToString() ?? string.Empty,
+                                Autor = reader["Autor"]?.ToString() ?? string.Empty,
+                                Categoria = reader["Categoria"]?.ToString() ?? string.Empty,
+                                Editora = reader["Editora"]?.ToString() ?? string.Empty,
+                                Disponivel = (bool)reader["Disponivel"]
+                            };
+                            livros.Add(livro);
+                        }
                     }
+
                 }
                 catch (SqlException ex)
                 {
@@ -165,6 +177,41 @@ namespace SistemaBibliotecario.DAL
                 }
             }
             return livros;
+        }
+
+        public void AtualizarDisponibilidade(int codigoLivro, bool estaDisponivel)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                try
+                {
+                    if (BuscarPorCodigo(codigoLivro) == null)
+                    {
+                        throw new Exception("Livro não encontrado!");
+                    }
+
+                    SqlCommand cmd = new SqlCommand
+                    (
+                        "UPDATE Livros " +
+                        "SET Disponivel = @Disponivel " +
+                        "WHERE Codigo = @Codigo",
+                        connection
+                    );
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.Parameters.Add("@Codigo", SqlDbType.Int).Value = codigoLivro;
+                    cmd.Parameters.Add("@Disponivel", SqlDbType.Bit).Value = estaDisponivel;
+                    cmd.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    throw new Exception("Erro ao atualizar disponibilidade do livro: " + ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Erro: " + ex.Message);
+                }
+            }
         }
     }
 }

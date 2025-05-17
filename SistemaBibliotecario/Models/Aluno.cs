@@ -11,6 +11,7 @@ namespace SistemaBibliotecario.Models
     public class Aluno
     {
         // Propriedades do aluno com validações por Data Annotations
+        [Key]
         [Required(ErrorMessage = "É obrigatório informar o RA!")]
         [Range(1, int.MaxValue, ErrorMessage = "RA deve ser um número positivo!")]
         public int RA { get; set; }

@@ -73,7 +73,7 @@ namespace SistemaBibliotecario.BLL
                 throw new Exception("O telefone deve ter entre 10 e 15 caracteres (com DDD)!");
             }
 
-            if (aluno.DataNascimento < DateTime.Now.AddYears(-10)) // Exemplo de validação de idade mínima
+            if (aluno.DataNascimento > DateTime.Now.AddYears(-10)) // Exemplo de validação de idade mínima
             {
                 throw new Exception("O aluno deve ter pelo menos 10 anos!");
             }
