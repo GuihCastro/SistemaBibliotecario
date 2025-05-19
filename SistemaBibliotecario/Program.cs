@@ -18,7 +18,8 @@ namespace SistemaBibliotecario
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new FormAluno());
-            Application.Run(new FormLivro());
+            //Application.Run(new FormLivro());
+            Application.Run(new FormEmprestimo());
         }
     }
 }

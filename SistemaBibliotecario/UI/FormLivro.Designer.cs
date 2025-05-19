@@ -227,16 +227,17 @@ namespace SistemaBibliotecario.UI
             this.lblTotal.Location = new System.Drawing.Point(20, 470);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(35, 13);
-            this.lblTotal.Text = $"Total de livros: {LivroBLL.Listar().Count}";
+            this.lblTotal.Text = $"Total de livros: ";
+            this.lblTotal.Text += $"{LivroBLL.Listar().Count}";
             this.lblTotal.TabIndex = 18;
-            //this.lblTotal.Visible = false;
 
             // lblDisponiveis
             this.lblDisponiveis.AutoSize = true;
             this.lblDisponiveis.Location = new System.Drawing.Point(120, 470);
             this.lblDisponiveis.Name = "lblDisponíveis";
             this.lblDisponiveis.Size = new System.Drawing.Size(0, 13);
-            this.lblDisponiveis.Text = $"Livros disponíveis: {LivroBLL.ListarDisponiveis().Count}";
+            this.lblDisponiveis.Text = $"Livros disponíveis: ";
+            this.lblDisponiveis.Text += $"{LivroBLL.ListarDisponiveis().Count}";
             this.lblDisponiveis.TabIndex = 19;
 
 

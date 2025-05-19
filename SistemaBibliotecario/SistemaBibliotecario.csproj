@@ -52,9 +52,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\AlunoBLL.cs" />
+    <Compile Include="BLL\EmprestimoBLL.cs" />
     <Compile Include="BLL\LivroBLL.cs" />
     <Compile Include="DAL\AlunoDAL.cs" />
     <Compile Include="DAL\ConexaoBD.cs" />
+    <Compile Include="DAL\EmprestimoDAL.cs" />
     <Compile Include="DAL\LivroDAL.cs" />
     <Compile Include="Helpers\Validador.cs" />
     <Compile Include="Models\Emprestimo.cs" />
@@ -73,6 +75,12 @@
     </Compile>
     <Compile Include="UI\FormAluno.Designer.cs">
       <DependentUpon>FormAluno.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormEmprestimo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormEmprestimo.Designer.cs">
+      <DependentUpon>FormEmprestimo.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FormLivro.cs">
       <SubType>Form</SubType>

@@ -10,6 +10,7 @@ namespace SistemaBibliotecario.Models
     public class Emprestimo
     {
         // Propriedades do empréstimo com validações por Data Annotations
+        [Key]
         [Required(ErrorMessage = "É obrigatório informar o código do empréstimo!")]
         [Range(1, int.MaxValue, ErrorMessage = "O código do empréstimo deve ser um número positivo!")]
         public int Codigo { get; set; }
