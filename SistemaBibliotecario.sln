@@ -5,8 +5,6 @@ VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaBibliotecario", "SistemaBibliotecario\SistemaBibliotecario.csproj", "{D6366598-9AC5-49DC-9F81-C560CC43151D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaBibliotecario.Testes", "SistemaBibliotecario.Testes\SistemaBibliotecario.Testes.csproj", "{0ED7F018-5814-4E1C-B990-6F99B246DF7F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{D6366598-9AC5-49DC-9F81-C560CC43151D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6366598-9AC5-49DC-9F81-C560CC43151D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6366598-9AC5-49DC-9F81-C560CC43151D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0ED7F018-5814-4E1C-B990-6F99B246DF7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0ED7F018-5814-4E1C-B990-6F99B246DF7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0ED7F018-5814-4E1C-B990-6F99B246DF7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0ED7F018-5814-4E1C-B990-6F99B246DF7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
