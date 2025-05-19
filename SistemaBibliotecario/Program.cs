@@ -19,7 +19,8 @@ namespace SistemaBibliotecario
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new FormAluno());
             //Application.Run(new FormLivro());
-            Application.Run(new FormEmprestimo());
+            //Application.Run(new FormEmprestimo());
+            Application.Run(new FormIndex());
         }
     }
 }

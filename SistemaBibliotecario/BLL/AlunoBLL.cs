@@ -37,6 +37,21 @@ namespace SistemaBibliotecario.BLL
             {
                 throw new Exception("Aluno não encontrado para exclusão!");
             }
+
+            // Verificar se o aluno possui empréstimos ativos
+            List<Emprestimo> emprestimosDoAluno = EmprestimoBLL.ListarPorAluno(ra);
+            if (emprestimosDoAluno.Any(e => !e.Devolvido))
+            {
+                throw new Exception("Não é possível excluir o aluno, pois ele possui empréstimos ativos!");
+            }
+
+            // Se não houver empréstimos ativos, prosseguir com a exclusão
+            // Primeiro, excluir os empréstimos associados
+            foreach (var emprestimo in emprestimosDoAluno)
+            {
+                EmprestimoBLL.Excluir(emprestimo.Codigo);
+            }
+
             _alunoDAL.Excluir(ra); // Chamada ao método de exclusão da DAL
         }
 

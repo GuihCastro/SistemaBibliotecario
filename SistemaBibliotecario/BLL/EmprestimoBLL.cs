@@ -76,10 +76,29 @@ namespace SistemaBibliotecario.BLL
             return emprestimosAtrasados;
         }
 
+        public static void Excluir(int codigo)
+        {
+            // Verifica se o empréstimo existe
+            Emprestimo emprestimo = _emprestimoDAL.BuscarPorCodigo(codigo);
+            if (emprestimo == null)
+            {
+                throw new Exception("Empréstimo não encontrado.");
+            }
+            // Verifica se o livro está disponível e, caso contrário, atualiza sua disponibilidade
+            Livro livro = _livroDAL.BuscarPorCodigo(emprestimo.CodigoLivro);
+            if (livro != null && !livro.Disponivel)
+            {
+                LivroBLL.AtualizarDisponibilidade(livro.Codigo, true);
+            }
+            // Exclui o empréstimo
+            _emprestimoDAL.Excluir(codigo);
+        }
+
         // Métodos de consulta delegados para a DAL
         public static Emprestimo BuscarPorCodigo(int codigo) => _emprestimoDAL.BuscarPorCodigo(codigo);
         public static List<Emprestimo> ListarAtivos() => _emprestimoDAL.ListarAtivos();
         public static List<Emprestimo> ListarDevolvidos() => _emprestimoDAL.ListarDevolvidos();
         public static List<Emprestimo> ListarPorAluno(int ra) => _emprestimoDAL.ListarPorAluno(ra);
+        public static List<Emprestimo> ListarPorLivro(int codigoLivro) => _emprestimoDAL.ListarPorLivro(codigoLivro);
     }
 }

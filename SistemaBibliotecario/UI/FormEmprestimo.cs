@@ -18,6 +18,11 @@ namespace SistemaBibliotecario.UI
         {
             InitializeComponent();
             CarregarEmprestimosAtivos();
+
+            this.WindowState = FormWindowState.Maximized;
+            //this.ControlBox = false;
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
         }
 
         private void btnRegistrarEmprestimo_Click(object sender, EventArgs e)

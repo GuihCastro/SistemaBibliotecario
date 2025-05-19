@@ -17,6 +17,11 @@ namespace SistemaBibliotecario.UI
         public FormAluno()
         {
             InitializeComponent();
+
+            this.WindowState = FormWindowState.Maximized;
+            //this.ControlBox = false;
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
         }
 
         private void btnInserir_Click(object sender, EventArgs e)

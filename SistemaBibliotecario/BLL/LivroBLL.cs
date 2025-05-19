@@ -37,6 +37,22 @@ namespace SistemaBibliotecario.BLL
             {
                 throw new Exception("Livro não encontrado para exclusão!");
             }
+
+            // Verifica se o livro possui empréstimos ativos
+            List<Emprestimo> emprestimosDoLivro = EmprestimoBLL.ListarPorLivro(codigo);
+            if (emprestimosDoLivro.Any(e => !e.Devolvido))
+            {
+                throw new Exception("Não é possível excluir um livro com empréstimos ativos!");
+            }
+
+            // Se não houver empréstimos ativos, prosseguir com a exclusão
+            // Primeiro, excluir os empréstimos associados
+            foreach (var emprestimo in emprestimosDoLivro)
+            {
+                EmprestimoBLL.Excluir(emprestimo.Codigo);
+            }
+
+            // Após excluir os empréstimos, excluir o livro
             _livroDAL.Excluir(codigo);
         }
 
