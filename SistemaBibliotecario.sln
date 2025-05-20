@@ -5,6 +5,8 @@ VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaBibliotecario", "SistemaBibliotecario\SistemaBibliotecario.csproj", "{D6366598-9AC5-49DC-9F81-C560CC43151D}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SistemaBibliotecarioInstaller", "SistemaBibliotecarioInstaller\SistemaBibliotecarioInstaller.vdproj", "{51C93F2C-A5FF-1CEB-2DEB-DFDFCA701EB2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{D6366598-9AC5-49DC-9F81-C560CC43151D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6366598-9AC5-49DC-9F81-C560CC43151D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6366598-9AC5-49DC-9F81-C560CC43151D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51C93F2C-A5FF-1CEB-2DEB-DFDFCA701EB2}.Debug|Any CPU.ActiveCfg = Debug
+		{51C93F2C-A5FF-1CEB-2DEB-DFDFCA701EB2}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
