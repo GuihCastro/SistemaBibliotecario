@@ -37,8 +37,8 @@ namespace SistemaBibliotecario.UI
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "FormIndex";
+            this.ClientSize = new System.Drawing.Size(800, 550);
+            this.Text = "Sistema Biliotecário";
 
             this.menuPrincipal = new MenuStrip();
             menuPrincipal.Dock = DockStyle.Top;

@@ -243,7 +243,7 @@ namespace SistemaBibliotecario.UI
 
             // lblAtivos
             this.lblAtivos.AutoSize = true;
-            this.lblAtivos.Location = new System.Drawing.Point(12, 464);
+            this.lblAtivos.Location = new System.Drawing.Point(112, 441);
             this.lblAtivos.Name = "lblAtivos";
             this.lblAtivos.Size = new System.Drawing.Size(26, 13);
             this.lblAtivos.TabIndex = 20;
@@ -252,7 +252,7 @@ namespace SistemaBibliotecario.UI
 
             // lblAtrasados
             this.lblAtrasados.AutoSize = true;
-            this.lblAtrasados.Location = new System.Drawing.Point(12, 487);
+            this.lblAtrasados.Location = new System.Drawing.Point(212, 441);
             this.lblAtrasados.Name = "lblAtrasados";
             this.lblAtrasados.Size = new System.Drawing.Size(26, 13);
             this.lblAtrasados.TabIndex = 21;

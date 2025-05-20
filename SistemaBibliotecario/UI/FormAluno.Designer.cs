@@ -78,7 +78,7 @@
             this.lblRA.Text = "RA:";
 
             // TextBox RA
-            this.txtRA.Location = new System.Drawing.Point(44, 12);
+            this.txtRA.Location = new System.Drawing.Point(110, 12);
             this.txtRA.Name = "txtRA";
             this.txtRA.Size = new System.Drawing.Size(100, 20);
             this.txtRA.TabIndex = 1;
@@ -92,7 +92,7 @@
             this.lblNome.Text = "Nome:";
 
             // TextBox Nome
-            this.txtNome.Location = new System.Drawing.Point(56, 38);
+            this.txtNome.Location = new System.Drawing.Point(110, 38);
             this.txtNome.Name = "txtNome";
             this.txtNome.Size = new System.Drawing.Size(200, 20);
             this.txtNome.TabIndex = 3;
@@ -106,7 +106,7 @@
             this.lblEmail.Text = "Email:";
 
             // TextBox Email
-            this.txtEmail.Location = new System.Drawing.Point(56, 64);
+            this.txtEmail.Location = new System.Drawing.Point(110, 64);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(200, 20);
             this.txtEmail.TabIndex = 5;
@@ -120,7 +120,7 @@
             this.lblTelefone.Text = "Telefone:";
 
             // TextBox Telefone
-            this.txtTelefone.Location = new System.Drawing.Point(67, 90);
+            this.txtTelefone.Location = new System.Drawing.Point(110, 90);
             this.txtTelefone.Name = "txtTelefone";
             this.txtTelefone.Size = new System.Drawing.Size(100, 20);
             this.txtTelefone.TabIndex = 7;
@@ -135,7 +135,7 @@
 
             // DateTimePicker DataNascimento
             this.dtpDataNascimento.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDataNascimento.Location = new System.Drawing.Point(121, 116);
+            this.dtpDataNascimento.Location = new System.Drawing.Point(110, 116);
             this.dtpDataNascimento.Name = "dtpDataNascimento";
             this.dtpDataNascimento.Size = new System.Drawing.Size(200, 20);
             this.dtpDataNascimento.TabIndex = 9;
