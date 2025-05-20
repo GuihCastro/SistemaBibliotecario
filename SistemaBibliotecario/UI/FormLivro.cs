@@ -12,19 +12,31 @@ using SistemaBibliotecario.Models;
 
 namespace SistemaBibliotecario.UI
 {
+    /// <summary>
+    /// Formulário para gerenciamento de livros no sistema bibliotecário.
+    /// Permite ao usuário realizar operações CRUD de livros.
+    /// </summary>
     public partial class FormLivro : Form
     {
+        /// <summary>
+        /// Construtor da classe.
+        /// Inicializa os componentes do formulário e define o estado da janela.
+        /// </summary>
         public FormLivro()
         {
             InitializeComponent();
             CarregarLivros();
 
             this.WindowState = FormWindowState.Maximized;
-            //this.ControlBox = false;
             this.MinimizeBox = false;
             this.MaximizeBox = false;
         }
 
+        /// <summary>
+        /// Evento de clique do botão "Inserir".
+        /// Recebe os dados do livro e chama os métodos para validar e inserir no Banco de Dados.
+        /// </summary>
+        /// <exception cref="Exception">Lançada quando ocorre um erro durante a inserção</exception>"
         private void btnInserir_Click(object sender, EventArgs e)
         {
             try
@@ -51,6 +63,11 @@ namespace SistemaBibliotecario.UI
             }
         }
 
+        /// <summary>
+        /// Evento de clique do botão "Buscar".
+        /// Verifica se o código do livro foi informado e chama o método para buscar no Banco de Dados.
+        /// </summary>
+        /// <exception cref="Exception">Lançada quando ocorre um erro durante a busca</exception>"
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             try
@@ -79,6 +96,11 @@ namespace SistemaBibliotecario.UI
             }
         }
 
+        /// <summary>
+        /// Evento de clique do botão "Atualizar".
+        /// Recebe os dados do livro e chama os métodos para validar e atualizar no Banco de Dados.
+        /// </summary>
+        /// <exception cref="Exception">Lançada quando ocorre um erro durante a atualização</exception>"
         private void btnAtualizar_Click(object sender, EventArgs e)
         {
             try
@@ -106,6 +128,11 @@ namespace SistemaBibliotecario.UI
             }
         }
 
+        /// <summary>
+        /// Evento de clique do botão "Excluir".
+        /// Verifica se o código do livro foi informado e chama o método para excluir no Banco de Dados.
+        /// </summary>
+        /// <exception cref="Exception">Lançada quando ocorre um erro durante a exclusão</exception>""
         private void btnExcluir_Click(object sender, EventArgs e)
         {
             try
@@ -129,6 +156,11 @@ namespace SistemaBibliotecario.UI
             }
         }
 
+        /// <summary>
+        /// Evento de clique do botão "Listar".
+        /// Chama o método para listar todos os livros cadastrados no sistema.
+        /// </summary>
+        /// <exception cref="Exception">Lançada quando ocorre um erro durante a listagem</exception>""
         private void btnListar_Click(object sender, EventArgs e)
         {
             try
@@ -143,6 +175,11 @@ namespace SistemaBibliotecario.UI
             }
         }
 
+        /// <summary>
+        /// Evento de clique do botão "Listar Disponíveis".
+        /// Chama o método para listar todos os livros disponíveis no sistema.
+        /// </summary>
+        /// <exception cref="Exception">Lançada quando ocorre um erro durante a listagem</exception>"""
         private void btnListarDisponiveis_Click(object sender, EventArgs e)
         {
             try
@@ -157,6 +194,10 @@ namespace SistemaBibliotecario.UI
             }
         }
 
+        /// <summary>
+        /// Preenche os campos do formulário com os dados do livro.
+        /// </summary>
+        /// <param name="livro">Objeto do tipo Livro com os dados para serem preenchidos</param>
         private void PreencherCampos(Livro livro)
         {
             txtCodigo.Text = livro.Codigo.ToString();
@@ -167,6 +208,9 @@ namespace SistemaBibliotecario.UI
             chkDisponivel.Checked = livro.Disponivel;
         }
 
+        /// <summary>
+        /// Limpa os campos do formulário.
+        /// </summary>
         private void LimparCampos()
         {
             txtCodigo.Clear();
@@ -177,6 +221,10 @@ namespace SistemaBibliotecario.UI
             chkDisponivel.Checked = false;
         }
 
+        /// <summary>
+        /// Carrega os livros cadastrados no sistema e exibe na DataGridView.
+        /// </summary>
+        /// <exception cref="Exception">Lançada quando ocorre um erro durante o carregamento</exception>""
         private void CarregarLivros()
         {
             try
@@ -190,6 +238,10 @@ namespace SistemaBibliotecario.UI
             }
         }
 
+        /// <summary>
+        /// Atualiza os totais de livros e livros disponíveis exibidos no formulário.
+        /// </summary>
+        /// <exception cref="Exception">Lançada quando ocorre um erro durante a atualização</exception>"
         private void AtualizarTotais()
         {
             try

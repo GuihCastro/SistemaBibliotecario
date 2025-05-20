@@ -12,26 +12,37 @@ using SistemaBibliotecario.Models;
 
 namespace SistemaBibliotecario.UI
 {
+    /// <summary>
+    /// Formulário para gerenciamento de empréstimos no sistema bibliotecário.
+    /// Permite ao usuário realizar operações de empréstimo e devolução de livros.
+    /// </summary>
     public partial class FormEmprestimo : Form
     {
+        /// <summary>
+        /// Construtor da classe.
+        /// Inicializa os componentes do formulário e define o estado da janela.
+        /// </summary>
         public FormEmprestimo()
         {
             InitializeComponent();
             CarregarEmprestimosAtivos();
 
             this.WindowState = FormWindowState.Maximized;
-            //this.ControlBox = false;
             this.MinimizeBox = false;
             this.MaximizeBox = false;
         }
 
+        /// <summary>
+        /// Evento de clique do botão "Registrar Empréstimo".
+        /// Recebe os dados do empréstimo e chama os métodos para validar e registrar no Banco de Dados.
+        /// </summary>
+        /// <exception cref="Exception">Lançada quando ocorre um erro durante o registro</exception>"
         private void btnRegistrarEmprestimo_Click(object sender, EventArgs e)
         {
             try
             {
                 Emprestimo emprestimo = new Emprestimo
                 {
-                    //Codigo = int.Parse(txtCodigo.Text),
                     RAAluno = int.Parse(txtRAAluno.Text),
                     CodigoLivro = int.Parse(txtCodigoLivro.Text),
                     DataRetirada = dtpDataRetirada.Value,
@@ -51,21 +62,23 @@ namespace SistemaBibliotecario.UI
             }
         }
 
+        /// <summary>
+        /// Evento de clique do botão "Registrar Devolução".
+        /// Verifica se o código do empréstimo foi informado e chama o método para registrar a devolução.
+        /// </summary>
+        /// <exception cref="Exception">Lançada quando ocorre um erro durante o registro da devolução</exception>"
         private void btnRegistrarDevolucao_Click(object sender, EventArgs e)
         {
             try
             {
                 if (dgvEmprestimos.CurrentRow == null && string.IsNullOrWhiteSpace(txtCodigo.Text))
                 {
-                    // Verifica se o código do empréstimo foi informado
                     MessageBox.Show("Informe o código do empréstimo para registrar a devolução");
                     return;
                 }
 
-                // Pegando o código do empréstimo da linha selecionada ou do campo de texto
                 int codigoEmprestimo = dgvEmprestimos.CurrentRow != null ? (int)dgvEmprestimos.CurrentRow.Cells["Codigo"].Value : int.Parse(txtCodigo.Text);
 
-                // Registrando a devolução
                 EmprestimoBLL.RegistrarDevolucao(codigoEmprestimo);
                 MessageBox.Show("Devolução registrada com sucesso!");
                 CarregarEmprestimosAtivos();
@@ -77,27 +90,28 @@ namespace SistemaBibliotecario.UI
             }
         }
 
+        /// <summary>
+        /// Evento de clique do botão "Buscar Empréstimo".
+        /// Verifica se o código do empréstimo foi informado e chama o método para buscar o empréstimo no Banco de Dados.
+        /// </summary>
+        /// <exception cref="Exception">Lançada quando ocorre um erro durante a busca</exception>""
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(txtCodigo.Text))
                 {
-                    // Verifica se o código do empréstimo foi informado
                     MessageBox.Show("Informe o código do empréstimo para buscar");
                     return;
                 }
 
-                // Localiza o empréstimo pelo código
                 Emprestimo emprestimo = EmprestimoBLL.BuscarPorCodigo(int.Parse(txtCodigo.Text));
                 if (emprestimo == null)
                 {
-                    // Verifica se o empréstimo foi encontrado
                     MessageBox.Show("Empréstimo não encontrado");
                     return;
                 }
 
-                // Preenche os campos com os dados do empréstimo encontrado
                 PreencherCampos(emprestimo);
                 List<Emprestimo> emprestimos = new List<Emprestimo>() { emprestimo };
                 dgvEmprestimos.DataSource = emprestimos;
@@ -109,27 +123,28 @@ namespace SistemaBibliotecario.UI
             }
         }
 
+        /// <summary>
+        /// Evento de clique do botão "Listar Empréstimos por Aluno".
+        /// Verifica se o RA do aluno foi informado e chama o método para listar os empréstimos do aluno.
+        /// </summary>
+        /// <exception cref="Exception">Lançada quando ocorre um erro durante a listagem</exception>""
         private void btnListarPorAluno_Click(object sender, EventArgs e)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(txtRAAluno.Text))
                 {
-                    // Verifica se o RA do aluno foi informado
                     MessageBox.Show("Informe o RA do aluno para listar os empréstimos");
                     return;
                 }
 
-                // Lista os empréstimos do aluno pelo RA
                 List<Emprestimo> emprestimos = EmprestimoBLL.ListarPorAluno(int.Parse(txtRAAluno.Text));
                 if (emprestimos.Count == 0)
                 {
-                    // Verifica se o aluno possui empréstimos
                     MessageBox.Show("Nenhum empréstimo encontrado para este aluno");
                     return;
                 }
 
-                // Atualiza a tabela de visualização com os empréstimos encontrados
                 dgvEmprestimos.DataSource = emprestimos;
                 MessageBox.Show($"Total de empréstimos encontrados: {emprestimos.Count}");
             }
@@ -139,6 +154,11 @@ namespace SistemaBibliotecario.UI
             }
         }
 
+        /// <summary>
+        /// Evento de clique do botão "Listar Empréstimos Ativos".
+        /// Verifica se há empréstimos ativos e chama o método para listar os empréstimos ativos.
+        /// </summary>
+        /// <exception cref="Exception">Lançada quando ocorre um erro durante a listagem</exception>"""
         private void btnListarAtivos_Click(object sender, EventArgs e)
         {
             try
@@ -146,12 +166,10 @@ namespace SistemaBibliotecario.UI
                 List<Emprestimo> emprestimosAtivos = EmprestimoBLL.ListarAtivos();
                 if (emprestimosAtivos.Count == 0)
                 {
-                    // Verifica se há empréstimos ativos
                     MessageBox.Show("Nenhum empréstimo ativo encontrado");
                     return;
                 }
 
-                // Atualiza a tabela de visualização com os empréstimos ativos encontrados
                 dgvEmprestimos.DataSource = emprestimosAtivos;
                 MessageBox.Show($"Total de empréstimos ativos encontrados: {emprestimosAtivos.Count}");
             }
@@ -161,6 +179,11 @@ namespace SistemaBibliotecario.UI
             }
         }
 
+        /// <summary>
+        /// Evento de clique do botão "Listar Empréstimos Atrasados".
+        /// Chama o método para listar os empréstimos atrasados.
+        /// </summary>
+        /// <exception cref="Exception">Lançada quando ocorre um erro durante a listagem</exception>""""
         private void btnListarAtrasados_Click(object sender, EventArgs e)
         {
             try
@@ -168,12 +191,10 @@ namespace SistemaBibliotecario.UI
                 List<Emprestimo> emprestimosAtrasados = EmprestimoBLL.VerificarAtrasos();
                 if (emprestimosAtrasados.Count == 0)
                 {
-                    // Verifica se há empréstimos atrasados
                     MessageBox.Show("Nenhum empréstimo atrasado encontrado");
                     return;
                 }
 
-                // Atualiza a tabela de visualização com os empréstimos atrasados encontrados
                 dgvEmprestimos.DataSource = emprestimosAtrasados;
                 MessageBox.Show($"Total de empréstimos atrasados encontrados: {emprestimosAtrasados.Count}");
             }
@@ -183,10 +204,14 @@ namespace SistemaBibliotecario.UI
             }
         }
 
-        // Carrega os empréstimos ativos na tabela de visualização
+        /// <summary>
+        /// Carrega os empréstimos ativos no DataGridView.
+        /// </summary>
         private void CarregarEmprestimosAtivos() => dgvEmprestimos.DataSource = EmprestimoBLL.ListarAtivos();
 
-        // Atualiza os totais de empréstimos ativos e atrasados
+        /// <summary>
+        /// Atualiza os totais de empréstimos, ativos e atrasados.
+        /// </summary>
         private void AtualizarTotais()
         {
             lblTotal.Text = $"Total: {EmprestimoBLL.ListarAtivos().Count + EmprestimoBLL.ListarDevolvidos().Count}";
@@ -194,6 +219,10 @@ namespace SistemaBibliotecario.UI
             lblAtrasados.Text = $"Atrasados: {EmprestimoBLL.VerificarAtrasos().Count}";
         }
 
+        /// <summary>
+        /// Preenche os campos do formulário com os dados do empréstimo selecionado.
+        /// </summary>
+        /// <param name="emprestimo">Objeto do tipo Emprestimo com os dados a serem preenchidos</param>
         private void PreencherCampos(Emprestimo emprestimo)
         {
             txtCodigo.Text = emprestimo.Codigo.ToString();
@@ -203,6 +232,9 @@ namespace SistemaBibliotecario.UI
             dtpDataEntrega.Value = emprestimo.DataEntrega;
         }
 
+        /// <summary>
+        /// Limpa os campos do formulário.
+        /// </summary>
         private void LimparCampos()
         {
             txtCodigo.Clear();

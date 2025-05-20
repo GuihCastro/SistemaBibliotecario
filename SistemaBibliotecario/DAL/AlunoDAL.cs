@@ -10,15 +10,26 @@ using SistemaBibliotecario.Models;
 
 namespace SistemaBibliotecario.DAL
 {
+    /// <summary>
+    /// Classe de comunicação com o Banco de Dados (Data Access Layer) para a entidade Aluno.
+    /// Implementa as operações CRUD (Create, Read, Update, Delete).
+    /// </summary>
     public class AlunoDAL
     {
         // String de conexão com o banco de dados
         private static string _connectionString = ConfigurationManager.ConnectionStrings["BibliotecaConnection"].ConnectionString;
 
-        // Construtor padrão
+        /// <summary>
+        /// Construtor padrão da classe.
+        /// </summary>
         public AlunoDAL() { }
 
-        // Métodos CRUD para o banco de dados
+        /// <summary>
+        /// Método para inserir um novo aluno no banco de dados.
+        /// </summary>
+        /// <param name="aluno">Objeto do tipo Aluno com os dados a serem inseridos</param>
+        /// <exception cref="SqlException">Lançada quando ocorre um erro no SQL Server</exception>
+        /// <exception cref="Exception">Lançada quando ocorre um erro genérico durante a operação</exception>
         public void Inserir(Aluno aluno)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -44,9 +55,20 @@ namespace SistemaBibliotecario.DAL
                 {
                     throw new Exception("Erro ao inserir aluno: " + ex.Message);
                 }
+                catch (Exception ex)
+                {
+                    throw new Exception("Erro: " + ex.Message);
+                }
             }
         }
 
+        /// <summary>
+        /// Método para buscar um aluno pelo RA (Registro Acadêmico).
+        /// </summary>
+        /// <param name="ra">RA do aluno a ser buscado</param>
+        /// <returns>Objeto do tipo Aluno encontrado</returns>
+        /// <exception cref="SqlException">Lançada quando ocorre um erro no SQL Server</exception>
+        /// <exception cref="Exception">Lançada quando ocorre um erro genérico durante a operação</exception>
         public Aluno BuscarPorRA(int ra)
         {
             Aluno aluno = null;
@@ -70,7 +92,7 @@ namespace SistemaBibliotecario.DAL
                             aluno = new Aluno
                             {
                                 RA = (int)reader["RA"],
-                                Nome = reader["Nome"]?.ToString() ?? string.Empty, // Trata nulidade
+                                Nome = reader["Nome"]?.ToString() ?? string.Empty,
                                 Email = reader["Email"]?.ToString() ?? string.Empty,
                                 Telefone = reader["Telefone"]?.ToString() ?? string.Empty,
                                 DataNascimento = (DateTime)reader["DataNascimento"]
@@ -82,10 +104,20 @@ namespace SistemaBibliotecario.DAL
                 {
                     throw new Exception("Erro ao buscar aluno: " + ex.Message);
                 }
+                catch (Exception ex)
+                {
+                    throw new Exception("Erro: " + ex.Message);
+                }
             }
             return aluno;
         }
 
+        /// <summary>
+        /// Método para atualizar os dados de um aluno no banco de dados.
+        /// </summary>
+        /// <param name="aluno">Objeto Aluno com os dados atualizados</param>
+        /// <exception cref="SqlException">Lançada quando ocorre um erro no SQL Server</exception>
+        /// <exception cref="Exception">Lançada quando ocorre um erro genérico durante a operação</exception>
         public void Atualizar(Aluno aluno)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -112,9 +144,19 @@ namespace SistemaBibliotecario.DAL
                 {
                     throw new Exception("Erro ao atualizar aluno: " + ex.Message);
                 }
+                catch (Exception ex)
+                {
+                    throw new Exception("Erro: " + ex.Message);
+                }
             }
         }
 
+        /// <summary>
+        /// Método para excluir um aluno do banco de dados pelo RA.
+        /// </summary>
+        /// <param name="ra">RA do aluno a ser excluído</param>
+        /// <exception cref="SqlException">Lançada quando ocorre um erro no SQL Server</exception>
+        /// <exception cref="Exception">Lançada quando ocorre um erro genérico durante a operação</exception>
         public void Excluir(int ra)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -136,9 +178,19 @@ namespace SistemaBibliotecario.DAL
                 {
                     throw new Exception("Erro ao deletar aluno: " + ex.Message);
                 }
+                catch (Exception ex)
+                {
+                    throw new Exception("Erro: " + ex.Message);
+                }
             }
         }
 
+        /// <summary>
+        /// Método para listar todos os alunos cadastrados no banco de dados.
+        /// </summary>
+        /// <returns>Lista de Objetos Aluno existentes no Banco de Dados</returns>
+        /// <exception cref="SqlException">Lançada quando ocorre um erro no SQL Server</exception>
+        /// <exception cref="Exception">Lançada quando ocorre um erro genérico durante a operação</exception>
         public List<Aluno> Listar()
         {
             List<Aluno> alunos = new List<Aluno>();
@@ -169,6 +221,10 @@ namespace SistemaBibliotecario.DAL
                 catch (SqlException ex)
                 {
                     throw new Exception("Erro ao listar alunos: " + ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Erro: " + ex.Message);
                 }
             }
             return alunos;

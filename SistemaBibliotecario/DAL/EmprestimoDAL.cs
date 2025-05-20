@@ -11,14 +11,26 @@ using SistemaBibliotecario.Models;
 
 namespace SistemaBibliotecario.DAL
 {
+    /// <summary>
+    /// Classe de comunicação com o Banco de Dados (Data Access Layer) para a entidade Empréstimo.
+    /// Implementa as operações CRUD (Create, Read, Update, Delete).
+    /// </summary>
     public class EmprestimoDAL
     {
-        // Camada de comunicação com o Banco de Dados para o Empréstimo
-
+        // String de conexão com o Banco de Dados
         private static string _connectionString = ConfigurationManager.ConnectionStrings["BibliotecaConnection"].ConnectionString;
 
+        /// <summary>
+        /// Construtor padrão da classe.
+        /// </summary>
         public EmprestimoDAL() { }
 
+        /// <summary>
+        /// Método para registrar um novo empréstimo.
+        /// </summary>
+        /// <param name="emprestimo">Objeto do tipo Emprestimo a ser registrado</param>
+        /// <exception cref="SqlException">Lançada quando ocorre um erro no SQL Server</exception>
+        /// <exception cref="Exception">Lançada quando ocorre um erro genérico durante a operação</exception>
         public void RegistrarEmprestimo(Emprestimo emprestimo)
         {
             // Método para registrar um novo empréstimo
@@ -87,6 +99,12 @@ namespace SistemaBibliotecario.DAL
             }
         }
 
+        /// <summary>
+        /// Método para registrar a devolução de um livro.
+        /// </summary>
+        /// <param name="codigoEmprestimo">Código do empréstimo a ser devolvido</param>
+        /// <exception cref="SqlException">Lançada quando ocorre um erro no SQL Server</exception>
+        /// <exception cref="Exception">Lançada quando ocorre um erro genérico durante a operação</exception>
         public void RegistrarDevolucao(int codigoEmprestimo)
         {
             Emprestimo emprestimo = new Emprestimo();
@@ -144,18 +162,14 @@ namespace SistemaBibliotecario.DAL
             }
         }
 
-        //public Emprestimo BuscarPorCodigo(int codigo)
-        //{
-        //    return BuscarPorCodigo(codigo, null);
-        //}
-
+        /// <summary>
+        /// Método para buscar um empréstimo pelo código.
+        /// </summary>
+        /// <param name="codigo">Código do empréstimo a ser buscado</param>
+        /// <returns>Objeto do tipo Empréstimo localizado ou null se não existir</returns>
+        /// <exception cref="Exception"></exception>
         public Emprestimo BuscarPorCodigo(int codigo)
         {
-            // Método auxiliar para buscar um empréstimo por código
-
-            // Verifica se a conexão é nula e cria uma nova conexão se necessário
-            //bool shouldCloseConnection = false;
-
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 try
@@ -167,7 +181,6 @@ namespace SistemaBibliotecario.DAL
                         "SELECT * FROM Emprestimos " +
                         "WHERE Codigo = @Codigo",
                         connection
-                    //transaction
                     );
                     cmd.CommandType = CommandType.Text;
                     cmd.Parameters.Add("@Codigo", SqlDbType.Int).Value = codigo;
@@ -200,9 +213,14 @@ namespace SistemaBibliotecario.DAL
             }
         }
 
+        /// <summary>
+        /// Método para excluir um empréstimo pelo código.
+        /// </summary>
+        /// <param name="codigo">Código do empréstimo a ser excluído</param>
+        /// <exception cref="SqlException">Lançada quando ocorre um erro no SQL Server</exception>
+        /// <exception cref="Exception">Lançada quando ocorre um erro genérico durante a operação</exception>
         public void Excluir(int codigo)
         {
-            // Método para excluir um empréstimo
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -239,6 +257,12 @@ namespace SistemaBibliotecario.DAL
             }
         }
 
+        /// <summary>
+        /// Método para listar todos os empréstimos ativos (não devolvidos).
+        /// </summary>
+        /// <returns>Lista de Objetos Emprestimo com Devolvido=false</returns>
+        /// <exception cref="SqlException">Lançada quando ocorre um erro no SQL Server</exception>
+        /// <exception cref="Exception">Lançada quando ocorre um erro genérico durante a operação</exception>
         public List<Emprestimo> ListarAtivos()
         {
             List<Emprestimo> emprestimos = new List<Emprestimo>();
@@ -284,6 +308,12 @@ namespace SistemaBibliotecario.DAL
             }
         }
 
+        /// <summary>
+        /// Método para listar todos os empréstimos devolvidos.
+        /// </summary>
+        /// <returns>Lista de Objetos Emprestimo com Devolvido=true</returns>
+        /// <exception cref="SqlException">Lançada quando ocorre um erro no SQL Server</exception>
+        /// <exception cref="Exception">Lançada quando ocorre um erro genérico durante a operação</exception>
         public List<Emprestimo> ListarDevolvidos()
         {
             List<Emprestimo> emprestimos = new List<Emprestimo>();
@@ -327,6 +357,13 @@ namespace SistemaBibliotecario.DAL
             }
         }
 
+        /// <summary>
+        /// Método para listar todos os empréstimos de um aluno específico.
+        /// </summary>
+        /// <param name="raAluno">RA do aluno a ser buscado</param>
+        /// <returns>Lista de Objetos emprestimo com o valor do campo RAAluno igual ao raAluno informado</returns>
+        /// <exception cref="SqlException">Lançada quando ocorre um erro no SQL Server</exception>
+        /// <exception cref="Exception">Lançada quando ocorre um erro genérico durante a operação</exception>
         public List<Emprestimo> ListarPorAluno(int raAluno)
         {
             List<Emprestimo> emprestimos = new List<Emprestimo>();
@@ -373,6 +410,13 @@ namespace SistemaBibliotecario.DAL
             }
         }
 
+        /// <summary>
+        /// Método para listar todos os empréstimos de um livro específico.
+        /// </summary>
+        /// <param name="codigoLivro">Código do livro a ser buscado</param>
+        /// <returns>Lista com os Objetos Emprestimo com o valor do campo CodigoLivro igual ao codigoLivro informado</returns>
+        /// <exception cref="SqlException">Lançada quando ocorre um erro no SQL Server</exception>
+        /// <exception cref="Exception">Lançada quando ocorre um erro genérico durante a operação</exception>
         public List<Emprestimo> ListarPorLivro(int codigoLivro)
         {
             List<Emprestimo> emprestimos = new List<Emprestimo>();

@@ -10,15 +10,26 @@ using SistemaBibliotecario.Models;
 
 namespace SistemaBibliotecario.DAL
 {
+    /// <summary>
+    /// Classe de comunicação com o Banco de Dados (Data Access Layer) para a entidade Livro.
+    /// Implementa as operações CRUD (Create, Read, Update, Delete).
+    /// </summary>
     public class LivroDAL
     {
         // String de conexão com o banco de dados
         private static string _connectionString = ConfigurationManager.ConnectionStrings["BibliotecaConnection"].ConnectionString;
 
-        // Construtor padrão
+        /// <summary>
+        /// Construtor padrão da classe.
+        /// </summary>
         public LivroDAL() { }
 
-        // Métodos CRUD para o banco de dados
+        /// <summary>
+        /// Método para inserir um novo livro no banco de dados.
+        /// </summary>
+        /// <param name="livro">Objeto do tipo Livro com os dados a serem inseridos</param>
+        /// <exception cref="SqlException">Lançada quando ocorre um erro no SQL Server</exception>
+        /// <exception cref="Exception">Lançada quando ocorre um erro genérico durante a operação</exception>
         public void Inserir(Livro livro)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -45,9 +56,20 @@ namespace SistemaBibliotecario.DAL
                 {
                     throw new Exception("Erro ao inserir livro: " + ex.Message);
                 }
+                catch (Exception ex)
+                {
+                    throw new Exception("Erro: " + ex.Message);
+                }
             }
         }
 
+        /// <summary>
+        /// Método para buscar um livro pelo código no banco de dados.
+        /// </summary>
+        /// <param name="codigo">Código do livro a ser buscado</param>
+        /// <returns>Objeto Livro encontrado ou null se não existir</returns>
+        /// <exception cref="SqlException">Lançada quando ocorre um erro no SQL Server</exception>
+        /// <exception cref="Exception">Lançada quando ocorre um erro genérico durante a operação</exception>
         public Livro BuscarPorCodigo(int codigo)
         {
             Livro livro = null;
@@ -85,10 +107,20 @@ namespace SistemaBibliotecario.DAL
                 {
                     throw new Exception("Erro ao buscar livro: " + ex.Message);
                 }
+                catch (Exception ex)
+                {
+                    throw new Exception("Erro: " + ex.Message);
+                }
             }
             return livro;
         }
 
+        /// <summary>
+        /// Método para atualizar os dados de um livro no banco de dados.
+        /// </summary>
+        /// <param name="livro">Objeto Livro com os dados atualizados</param>
+        /// <exception cref="SqlException">Lançada quando ocorre um erro no SQL Server</exception>
+        /// <exception cref="Exception">Lançada quando ocorre um erro genérico durante a operação</exception>
         public void Atualizar(Livro livro)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -116,9 +148,19 @@ namespace SistemaBibliotecario.DAL
                 {
                     throw new Exception("Erro ao atualizar livro: " + ex.Message);
                 }
+                catch (Exception ex)
+                {
+                    throw new Exception("Erro: " + ex.Message);
+                }
             }
         }
 
+        /// <summary>
+        /// Método para excluir um livro do banco de dados pelo código.
+        /// </summary>
+        /// <param name="codigo">Código do livro a ser excluído</param>
+        /// <exception cref="SqlException">Lançada quando ocorre um erro no SQL Server</exception>
+        /// <exception cref="Exception">Lançada quando ocorre um erro genérico durante a operação</exception>
         public void Excluir(int codigo)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -140,9 +182,19 @@ namespace SistemaBibliotecario.DAL
                 {
                     throw new Exception("Erro ao deletar livro: " + ex.Message);
                 }
+                catch (Exception ex)
+                {
+                    throw new Exception("Erro: " + ex.Message);
+                }
             }
         }
 
+        /// <summary>
+        /// Método para listar todos os livros do banco de dados.
+        /// </summary>
+        /// <returns>Lista de Objetos do tipo Livro contendo todos os livros registrados no Banco de Dados</returns>
+        /// <exception cref="SqlException">Lançada quando ocorre um erro no SQL Server</exception>
+        /// <exception cref="Exception">Lançada quando ocorre um erro genérico durante a operação</exception>
         public List<Livro> Listar()
         {
             List<Livro> livros = new List<Livro>();
@@ -175,10 +227,21 @@ namespace SistemaBibliotecario.DAL
                 {
                     throw new Exception("Erro ao listar livros: " + ex.Message);
                 }
+                catch (Exception ex)
+                {
+                    throw new Exception("Erro: " + ex.Message);
+                }
             }
             return livros;
         }
 
+        /// <summary>
+        /// Método para atualizar a disponibilidade de um livro no banco de dados.
+        /// </summary>
+        /// <param name="codigoLivro">Código do livro a ser atualizado</param>
+        /// <param name="estaDisponivel">Status de Disponibilidade a ser atualizado (true ou false)</param>
+        /// <exception cref="SqlException">Lançada quando ocorre um erro no SQL Server</exception>
+        /// <exception cref="Exception">Lançada quando ocorre um erro genérico durante a operação</exception>
         public void AtualizarDisponibilidade(int codigoLivro, bool estaDisponivel)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))

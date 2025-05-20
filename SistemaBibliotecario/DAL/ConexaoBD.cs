@@ -9,12 +9,17 @@ using System.Windows.Forms;
 
 namespace SistemaBibliotecario.DAL
 {
+    /// <summary>
+    /// Classe responsável por gerenciar a conexão com o banco de dados.
+    /// </summary>
     internal class ConexaoBD
     {
         // Obter a connection string do App.config
         private static string _connectionString = ConfigurationManager.ConnectionStrings["BibliotecaConnection"].ConnectionString;
 
-        // Testando a conexão com o Banco
+        /// <summary>
+        /// Método para testar a conexão com o banco de dados.
+        /// </summary>
         public static void TestarConexao()
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))

@@ -12,18 +12,30 @@ using SistemaBibliotecario.Models;
 
 namespace SistemaBibliotecario.UI
 {
+    /// <summary>
+    /// Formulário para gerenciamento de alunos no sistema bibliotecário.
+    /// Permite ao usuário realizar operações CRUD de alunos.
+    /// </summary>
     public partial class FormAluno: Form
     {
+        /// <summary>
+        /// Construtor da classe.
+        /// Inicializa os componentes do formulário e define o estado da janela.
+        /// </summary>
         public FormAluno()
         {
             InitializeComponent();
 
             this.WindowState = FormWindowState.Maximized;
-            //this.ControlBox = false;
             this.MinimizeBox = false;
             this.MaximizeBox = false;
         }
 
+        /// <summary>
+        /// Evento de clique do botão "Inserir".
+        /// Recebe os dados do aluno e chama os métodos para validar e inserir no Banco de Dados.
+        /// </summary>
+        /// <exception cref="Exception">Lançada quando ocorre um erro durante a inserção</exception>
         private void btnInserir_Click(object sender, EventArgs e)
         {
             try
@@ -48,6 +60,11 @@ namespace SistemaBibliotecario.UI
             }
         }
 
+        /// <summary>
+        /// Evento de clique do botão "Buscar".
+        /// Verifica se o RA foi informado e chama o método para buscar o aluno no Banco de Dados.
+        /// </summary>
+        /// <exception cref="Exception">Lançada quando ocorre um erro durante a busca</exception>
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             try
@@ -76,6 +93,11 @@ namespace SistemaBibliotecario.UI
             }
         }
 
+        /// <summary>
+        /// Evento de clique do botão "Atualizar".
+        /// Recebe os dados do aluno e chama os métodos para validar e atualizar no Banco de Dados.
+        /// </summary>
+        /// <exception cref="Exception">Lançada quando ocorre um erro durante a atualização</exception>"
         private void btnAtualizar_Click(object sender, EventArgs e)
         {
             try
@@ -102,6 +124,11 @@ namespace SistemaBibliotecario.UI
             }
         }
 
+        /// <summary>
+        /// Evento de clique do botão "Excluir".
+        /// Verifica se o RA foi informado e chama o método para excluir o aluno do Banco de Dados.
+        /// </summary>
+        /// <exception cref="Exception">Lançada quando ocorre um erro durante a exclusão</exception>"
         private void btnExcluir_Click(object sender, EventArgs e)
         {
             try
@@ -124,6 +151,11 @@ namespace SistemaBibliotecario.UI
             }
         }
 
+        /// <summary>
+        /// Evento de clique do botão "Listar".
+        /// Chama o método para listar todos os alunos cadastrados no Banco de Dados.
+        /// </summary>
+        /// <exception cref="Exception">Lançada quando ocorre um erro durante a listagem</exception>"
         private void btnListar_Click(object sender, EventArgs e)
         {
             try
@@ -138,6 +170,10 @@ namespace SistemaBibliotecario.UI
             }
         }
 
+        /// <summary>
+        /// Preenche os campos do formulário com os dados de um aluno.
+        /// </summary>
+        /// <param name="aluno">Objeto do tipo Aluno com os dados a serem preenchidos</param>
         private void PreencherCampos(Aluno aluno)
         {
             txtRA.Text = aluno.RA.ToString();
@@ -147,6 +183,9 @@ namespace SistemaBibliotecario.UI
             dtpDataNascimento.Value = aluno.DataNascimento;
         }
 
+        /// <summary>
+        /// Limpa os campos do formulário.
+        /// </summary>
         private void LimparCampos()
         {
             txtRA.Clear();

@@ -8,19 +8,30 @@ using SistemaBibliotecario.Models;
 
 namespace SistemaBibliotecario.BLL
 {
+    /// <summary>
+    /// Classe que aplica as Regras de Negócios (Business Logic Layer) para manipulação de alunos.
+    /// </summary>
     public class AlunoBLL
     {
         private static readonly AlunoDAL _alunoDAL = new AlunoDAL();
 
-        // Método para validar o cadastro de aluno antes de inserir no banco
+        /// <summary>
+        /// Método responsável por validar os dados de um novo aluno antes de inserí-lo no sistema.
+        /// </summary>
+        /// <param name="aluno">Objeto do tipo Aluno contendo os dados a serem validados e inseridos</param>
+        /// <exception cref="Exception">Lançada quando há erro de validação</exception>
         public static void Inserir(Aluno aluno)
         {
-            ValidarAluno(aluno); // Valida os dados do aluno
-            ValidarRA(aluno.RA); // Verifica se o RA já existe
-            _alunoDAL.Inserir(aluno); // Chamada ao método de inserção da DAL
+            ValidarAluno(aluno); 
+            ValidarRA(aluno.RA);
+            _alunoDAL.Inserir(aluno);
         }
 
-        // Validar os dados antes de mandar para a DAL atualizar
+        /// <summary>
+        /// Método responsável por atualizar os dados de um aluno já cadastrado no sistema.
+        /// </summary>
+        /// <param name="aluno">Objeto do tipo Aluno com os dados atualizados</param>
+        /// <exception cref="Exception">Lançada quando o aluno não existe ou quando há erro de validação</exception>
         public static void Atualizar(Aluno aluno)
         {
             ValidarAluno(aluno);
@@ -28,9 +39,14 @@ namespace SistemaBibliotecario.BLL
             {
                 throw new Exception("Aluno não encontrado para atualização!");
             }
-            _alunoDAL.Atualizar(aluno); // Chamada ao método de atualização da DAL
+            _alunoDAL.Atualizar(aluno);
         }
 
+        /// <summary>
+        /// Método responsável por validar se um aluno pode ser excluido do sistema.
+        /// </summary>
+        /// <param name="ra">RA do aluno a ser excluído</param>
+        /// <exception cref="Exception">Lançada quando o aluno não existe ou possui empréstimos ativos</exception>
         public static void Excluir(int ra)
         {
             if (_alunoDAL.BuscarPorRA(ra) == null)
@@ -38,24 +54,26 @@ namespace SistemaBibliotecario.BLL
                 throw new Exception("Aluno não encontrado para exclusão!");
             }
 
-            // Verificar se o aluno possui empréstimos ativos
             List<Emprestimo> emprestimosDoAluno = EmprestimoBLL.ListarPorAluno(ra);
             if (emprestimosDoAluno.Any(e => !e.Devolvido))
             {
                 throw new Exception("Não é possível excluir o aluno, pois ele possui empréstimos ativos!");
             }
 
-            // Se não houver empréstimos ativos, prosseguir com a exclusão
-            // Primeiro, excluir os empréstimos associados
             foreach (var emprestimo in emprestimosDoAluno)
             {
                 EmprestimoBLL.Excluir(emprestimo.Codigo);
             }
 
-            _alunoDAL.Excluir(ra); // Chamada ao método de exclusão da DAL
+            _alunoDAL.Excluir(ra); 
         }
 
         // Métodos auxiliares de validação
+        /// <summary>
+        /// Método responsável por validar todos os campos de um aluno.
+        /// </summary>
+        /// <param name="aluno">Objeto Aluno a ser validado</param>
+        /// <exception cref="Exception">Lançada quando algum campo não atende aos requisitos</exception>
         private static void ValidarAluno(Aluno aluno)
         {
             if (aluno.RA <= 0)
@@ -94,6 +112,11 @@ namespace SistemaBibliotecario.BLL
             }
         }
 
+        /// <summary>
+        /// Método responsável por validar se o RA do aluno já existe no sistema.
+        /// </summary>
+        /// <param name="ra">RA a ser validado</param>
+        /// <exception cref="Exception">Lançada quando o RA já existe no Banco de Dados</exception>
         private static void ValidarRA(int ra)
         {
             if (_alunoDAL.BuscarPorRA(ra) != null)
@@ -103,7 +126,17 @@ namespace SistemaBibliotecario.BLL
         }
 
         // Métodos de consulta (sem validação) - delegam para a DAL
+        /// <summary>
+        /// Método responsável por buscar um aluno pelo RA.
+        /// </summary>
+        /// <param name="ra">RA do aluno a ser buscado</param>
+        /// <returns>Objeto Aluno encontrado ou null se não existir</returns>
         public static Aluno BuscarPorRA(int ra) => _alunoDAL.BuscarPorRA(ra);
+
+        /// <summary>
+        /// Método responsável por listar todos os alunos cadastrados no sistema.
+        /// </summary>
+        /// <returns>Lista com os objetos Aluno encontrados</returns>
         public static List<Aluno> Listar() => _alunoDAL.Listar();
     }
 }
