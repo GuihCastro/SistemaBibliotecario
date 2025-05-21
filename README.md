@@ -2,7 +2,7 @@
 
 ![1747828327479](image/README/1747828327479.png)
 
-Sistema de CRUD para gerenciamento de uma bibliotéca escolar feitocomo teste para estágio na Qbit Informática.
+Sistema de CRUD para gerenciamento de uma bibliotéca escolar feito como teste para estágio na Qbit Informática.
 
 Desenvolvido em C# (.NET) com Windows Forms e SQL Server Express (LocalDB).
 
