@@ -5,12 +5,12 @@ GO
 CREATE DATABASE [BibliotecaDB] ON PRIMARY
 (
     NAME = N'BibliotecaDB',
-    FILENAME = N'$(ProjectDir)App_Data\BibliotecaDB.mdf'
+    FILENAME = N'$(ProjectDir)\App_Data\BibliotecaDB.mdf'
 )
 LOG ON
 (
     NAME = N'BibliotecaDB_log',
-    FILENAME = N'$(ProjectDir)App_Data\BibliotecaDB_log.ldf'
+    FILENAME = N'$(ProjectDir)\App_Data\BibliotecaDB_log.ldf'
 )
 GO
 
